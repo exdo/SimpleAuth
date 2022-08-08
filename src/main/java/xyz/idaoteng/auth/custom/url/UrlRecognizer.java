@@ -27,8 +27,6 @@ public class UrlRecognizer {
         }
 
         for (String pattern : loginBoundUrl) {
-            System.out.println("pattern = " + pattern);
-            System.out.println("size = " + loginBoundUrl.size());
             if (pathMatcher.match(pattern, url)) {
                 return new UrlRequirements().setType(UrlType.LOGIN_BOUND);
             }
