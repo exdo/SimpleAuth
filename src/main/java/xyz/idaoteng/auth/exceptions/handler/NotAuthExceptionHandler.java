@@ -45,7 +45,6 @@ public class NotAuthExceptionHandler {
         if (noCustomResponse) {
             res.setContentType("application/json;charset=UTF-8");
             res.getWriter().write("{\"code\":403,\"message\":\"未登入\"}");
-
         } else {
             customProcessor.whenUserNotSignedIn(JacksonUtil.objectMapper(), req, res);
         }

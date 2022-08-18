@@ -5,6 +5,7 @@ import xyz.idaoteng.auth.subject.UserInfo;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 public interface CustomProcessor {
     /**
@@ -13,9 +14,17 @@ public interface CustomProcessor {
      * @param request 用户提交的请求
      * @param response 返回给用户的响应
      */
-    void whenUserNotSignedIn(ObjectMapper objectMapper,
+    default void whenUserNotSignedIn(ObjectMapper objectMapper,
                              HttpServletRequest request,
-                             HttpServletResponse response);
+                             HttpServletResponse response) {
+        response.setContentType("application/json;charset=UTF-8");
+        try {
+            response.getWriter().write("{\"code\":403,\"message\":\"未登入\"}");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * 在用户的角色不符要求时的自定义处理方式
@@ -24,10 +33,18 @@ public interface CustomProcessor {
      * @param request 用户提交的请求
      * @param response 返回给用户的响应
      */
-    void whenUserRoleMismatch(ObjectMapper objectMapper,
+    default void whenUserRoleMismatch(ObjectMapper objectMapper,
                                 UserInfo userInfo,
                                 HttpServletRequest request,
-                                HttpServletResponse response);
+                                HttpServletResponse response) {
+        response.setContentType("application/json;charset=UTF-8");
+        try {
+            response.getWriter().write("{\"code\":403,\"message\":\"角色不符\"}");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * 在用户的权限不符要求时的自定义处理方式
@@ -36,10 +53,18 @@ public interface CustomProcessor {
      * @param request 用户提交的请求
      * @param response 返回给用户的响应
      */
-    void whenUserPermissionMismatch(ObjectMapper objectMapper,
+    default void whenUserPermissionMismatch(ObjectMapper objectMapper,
                                       UserInfo userInfo,
                                       HttpServletRequest request,
-                                      HttpServletResponse response);
+                                      HttpServletResponse response) {
+        response.setContentType("application/json;charset=UTF-8");
+        try {
+            response.getWriter().write("{\"code\":403,\"message\":\"权限不足\"}");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * 在用户的登出时的自定义处理方式
@@ -48,8 +73,16 @@ public interface CustomProcessor {
      * @param request 用户提交的请求
      * @param response 返回给用户的响应
      */
-    void whenUserSignedOut(ObjectMapper objectMapper,
+    default void whenUserSignedOut(ObjectMapper objectMapper,
                            UserInfo userInfo,
                            HttpServletRequest request,
-                           HttpServletResponse response);
+                           HttpServletResponse response) {
+        response.setContentType("application/json;charset=UTF-8");
+        try {
+            response.getWriter().write("{\"code\":200,\"message\":\"已登出\"}");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
 }
