@@ -15,7 +15,7 @@ import xyz.idaoteng.auth.tools.RedisUid;
 import java.util.concurrent.TimeUnit;
 
 @Component
-@Conditional(NoOtherReceiptService.class)
+@Conditional(NoOtherReceiptServiceCondition.class)
 @Slf4j
 public class RedisReceiptService extends BasicReceiptService {
     private final RedisTemplate<String, Object> redisTemplate;

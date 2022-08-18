@@ -11,6 +11,17 @@ public class PasswordUtil {
     private static final int BOUND_OF_CHARS = CHARS.length;
     private static final int BOUND_OF_NUMS = NUMS.length;
 
+    private static final SecureRandom SECURE_RANDOM;
+
+    static {
+        try {
+            SECURE_RANDOM = SecureRandom.getInstanceStrong();
+            //SECURE_RANDOM = new SecureRandom();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("PasswordUtil工具类: 算法名有误！？");
+        }
+    }
+
     //对密码进行sha256加密
     public static String encrypt(String originalPassword) {
         return DigestUtils.sha256Hex(originalPassword);
@@ -23,15 +34,9 @@ public class PasswordUtil {
 
     private static String getString(int length, char[] chars, int bound) {
         char[] randomString = new char[length];
-        SecureRandom sRandom;
-        try {
-            sRandom = SecureRandom.getInstanceStrong();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("PasswordUtil工具类: 算法名有误！？");
-        }
 
         for (int i = 0; i < length; i++) {
-            randomString[i] = chars[sRandom.nextInt(bound)];
+            randomString[i] = chars[SECURE_RANDOM.nextInt(bound)];
         }
         return new String(randomString);
     }

@@ -14,7 +14,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import static com.wf.captcha.base.Captcha.FONT_5;
 
 @Component
-@Conditional(NoOtherProvider.class)
+@Conditional(NoOtherProviderCondition.class)
 @Slf4j
 public class Captcha implements VerificationCodeProvider {
     private final LinkedBlockingQueue<VerificationCode> captchaQueue = new LinkedBlockingQueue<>(500);

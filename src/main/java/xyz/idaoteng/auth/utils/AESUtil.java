@@ -15,7 +15,7 @@ public class AESUtil {
         byte[] keyBytes = DigestUtils.md5(KEY_TEXT);
         //创建密钥，128bits（经过MD5散列后得到的byte数组大小必然是16）
         //AES 算法的 key只能是128bits或196bits或256bits，对应的字节大小为16、24、32字节
-        KEY = new  SecretKeySpec(keyBytes, "AES");
+        KEY = new SecretKeySpec(keyBytes, "AES");
     }
 
     //加密

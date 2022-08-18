@@ -17,7 +17,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Component
-@Conditional(NoOtherRepository.class)
+@Conditional(NoOtherRepositoryCondition.class)
 @Slf4j
 public class RedisOnlineUserRepository extends BasicRepository {
     private final String suffix;

@@ -61,7 +61,7 @@ public class UrlRecognizer {
         return this;
     }
 
-    //放行未配置的URL。如果为FALSE，则未配置的URL必须先登入才能被访问
+    //是否放行未配置的URL。如果为FALSE，则未配置的URL必须先登入才能被访问
     public UrlRecognizer allowTheRest(boolean allow) {
         this.allowTheRest = allow;
         return this;
