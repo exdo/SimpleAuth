@@ -47,7 +47,7 @@ public class PasswordUtil {
     }
 
     //随机纯数字字符串
-    public static String randomNumericalString(int length) {
+    public static String randomNumber(int length) {
         return getString(length, NUMS, BOUND_OF_NUMS);
     }
 }

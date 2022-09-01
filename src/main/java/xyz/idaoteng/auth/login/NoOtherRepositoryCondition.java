@@ -1,18 +1,18 @@
-package xyz.idaoteng.auth.verification.impl;
+package xyz.idaoteng.auth.login;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;
-import xyz.idaoteng.auth.verification.VerificationCodeProvider;
+import xyz.idaoteng.auth.login.OnlineUserRepository;
 
-public class NoOtherProviderCondition implements Condition {
+public class NoOtherRepositoryCondition implements Condition {
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
         ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
         try {
-            beanFactory.getBean(VerificationCodeProvider.class);
+            beanFactory.getBean(OnlineUserRepository.class);
             return false;
         } catch (BeansException e) {
             return true;
