@@ -20,7 +20,6 @@ import java.util.concurrent.TimeUnit;
 public class RedisReceiptService extends BasicReceiptService {
     private final RedisTemplate<String, Object> redisTemplate;
     private final RedisUid redisUid;
-    private final String RECEIPT_REPOSITORY = "receipt-repository";
 
     @Autowired
     public RedisReceiptService(RedisTemplateHolder holder,
