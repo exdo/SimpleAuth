@@ -27,15 +27,22 @@ public abstract class BasicReceiptService implements ReceiptService{
     }
 
     //生成存根
-    protected Stub generateStub() {
+    protected Stub generateStub(boolean needVerificationCode) {
         Stub stub = new Stub();
         stub.setReceiptId(nextReceiptId());
         stub.setReceiptDeadline(genReceiptDeadline());
-        stub.setVerificationCodeCreateTime(genVerificationCodeCreateTime());
-        stub.setVerificationCodeDeadline(genVerificationCodeDeadline());
-        VerificationCode code = genVerificationCode();
-        stub.setOutputObject(code.getOutputObject());
-        stub.setCorrectFeedback(code.getCorrectFeedback());
+
+        if (needVerificationCode) {
+            stub.setVerificationCodeCreateTime(genVerificationCodeCreateTime());
+            stub.setVerificationCodeDeadline(genVerificationCodeDeadline());
+            VerificationCode code = genVerificationCode();
+            stub.setOutputObject(code.getOutputObject());
+            stub.setCorrectFeedback(code.getCorrectFeedback());
+        } else {
+            stub.setVerificationCodeCreateTime(0L);
+            stub.setVerificationCodeDeadline(Long.MAX_VALUE);
+        }
+
         return stub;
     }
 
@@ -57,8 +64,8 @@ public abstract class BasicReceiptService implements ReceiptService{
     protected abstract String nextReceiptId();
 
     @Override
-    public Receipt nextReceipt() {
-        Stub stub = generateStub();
+    public Receipt nextReceipt(boolean needVerificationCode) {
+        Stub stub = generateStub(needVerificationCode);
         Receipt receipt = generateReceipt(stub);
         saveStub(stub);
         return receipt;
